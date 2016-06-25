@@ -1,2 +1,2 @@
 # accelerator-toolkit
-a simple python toolkit for simulating particle accelerators
+a simple python toolkit for simulating linear particle accelerators
