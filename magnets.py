@@ -1,5 +1,4 @@
 from base import Device
-import numpy as np
 import math as math
 
 

@@ -20,7 +20,6 @@ from magnets import HorizontalKickerMagnet
 from diagnostic import Transformator
 from diagnostic import Screen
 from diagnostic import Slit
-from simulator import Simulator
 import time
 
 
@@ -65,23 +64,30 @@ def main():
     t2 = Transformator("T2", width, height)
     m1 = SectorBendingMagnet("UN4MU1", width, height, length=1.0, angle=0.5)
     t3 = Transformator("T3", width, height)
-    s1 = Screen("Screen", width, height, 0.2, 0.2)
+    s1 = Screen("Screen1", width, height, 0.2, 0.2)
+    s2 = Screen("Screen2", width, height, 0.2, 0.2)
 
     # acc.append_devices([t0])
-    acc.append_devices([t0, s0, p1, t1, q1, sl1, q2, sl1, p2, sl2, k1, p3, t2, m1, t3])
-    n = 8000
-
+    acc.append_devices([t0, s0, p1, t1, q1, sl1, q2, sl1, p2, sl2, s1, k1, p3, t2, m1, t3, s2])
+    sl2.set_positions(xpos_left=-0.01, xpos_right=0.01, ypos_bottom=-0.01, ypos_top=0.01)
+    n = 80000
+    '''
     acc.reset()
 
     simulate(accelerator=acc, num_of_particles=n, threaded=False, measure_time=True)
     print(t0.count.value, " particles in T0\n")
-
+    print(s0.num_of_particles(), " particles in S0\n")
+    '''
     acc.reset()
 
     simulate(accelerator=acc, num_of_particles=n, threaded=True, measure_time=True)
     print(t0.count.value, " particles in T0\n")
+    print(s0.num_of_particles(), " particles in S0\n")
 
-    s0.show()
+
+    s1.show()
+    s2.show()
+
 
     # print(t1.particleCount, " particles in T1")
     # print(t2.particleCount, " particles in T2")

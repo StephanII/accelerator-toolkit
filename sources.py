@@ -1,9 +1,6 @@
 from particles import Ion
 from random import gauss
 
-# -----------------------------------------------------------------------------------------
-# 
-# 
 
 class IonSource:
     def __init__(self, protons=92, neutrons=146, electrons=19, extraction_energy=5000.):
@@ -26,6 +23,7 @@ class IonSource:
         self.firstDevice = device
 
     def run(self, number_of_ions):
+
         for i in range(0, number_of_ions):
             x = gauss(mu=0, sigma=0.01)
             dx = gauss(mu=0, sigma=0.005)
@@ -34,6 +32,8 @@ class IonSource:
             dl = gauss(mu=0, sigma=0.001)
             dp = gauss(mu=0, sigma=0.01)
 
+            ion = Ion(self.protons, self.neutrons, self.electrons, self.extraction_energy, x, dx, y, dy, dl, dp)
+
             if self.firstDevice:
-                self.firstDevice.transport(Ion(self.protons, self.neutrons, self.electrons, self.extraction_energy, x, dx, y, dy, dl, dp))
+                self.firstDevice.transport(ion)
 

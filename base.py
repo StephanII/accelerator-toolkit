@@ -1,16 +1,18 @@
-import numpy as np
+class Aperture:
+    ellipse = 1
+    rectangle = 1
 
 
 class Device(object):
-    def __init__(self, nomenclature, width, height, length=0.):
+    def __init__(self, nomenclature, width, height, length=0., aperture_type=Aperture.ellipse):
 
         self.nomenclature = nomenclature
         self.width = width
         self.height = height
         self.length = length
+        self.aperture_type = aperture_type
         self.previous = None
         self.next = None
-        self.transportMatrix = None
 
     def __str__(self):
 
@@ -37,4 +39,12 @@ class Device(object):
 
     def is_particle_lost(self, ion):
 
-        return (4 * (ion.x ** 2) / (self.width ** 2) + 4 * (ion.y ** 2) / (self.height ** 2)) > 1
+        if self.aperture_type == Aperture.ellipse:
+            return (4 * (ion.x ** 2) / (self.width ** 2) + 4 * (ion.y ** 2) / (self.height ** 2)) > 1
+        elif self.aperture_type == Aperture.rectangle:
+            return ion.x < -0.5 * self.width or \
+                ion.x > 0.5 * self.width or \
+                ion.y < -0.5 * self.height or \
+                ion.y > 0.5 * self.height
+        else:
+            raise Exception("Aperture type unknown")
