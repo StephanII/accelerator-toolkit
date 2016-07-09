@@ -4,7 +4,7 @@ from multiprocessing import Value, Array
 
 
 class Transformator(Device):
-    def __init__(self, nomenclature, width, height):
+    def __init__(self, nomenclature="", width=0, height=0):
 
         Device.__init__(self, nomenclature, width, height)
         self.count = Value('i', 0)
@@ -16,6 +16,7 @@ class Transformator(Device):
         r += "height=" + str(self.height) + "m, "
         r += "length=" + str(self.length) + "m, "
         r += "count=" + str(self.count.value) + ")"
+        return r
 
     def transport(self, particle):
         if not self.is_particle_lost(particle):
@@ -32,7 +33,7 @@ class Transformator(Device):
 
 
 class ProfileGrid(Device):
-    def __init__(self, nomenclature, width, height, number_of_wires_h=100, number_of_wires_v=100):
+    def __init__(self, nomenclature="", width=0, height=0, number_of_wires_h=100, number_of_wires_v=100):
         Device.__init__(self, nomenclature, width, height)
         self.number_of_wires_horizontal = number_of_wires_h
         self.number_of_wires_vertical = number_of_wires_v
@@ -59,11 +60,11 @@ class ProfileGrid(Device):
 
 
 class Screen(Device):
-    def __init__(self, nomenclature, width, height, screen_width, screen_height):
+    def __init__(self, nomenclature="", width=0, height=0, screen_width=0, screen_height=0):
 
         Device.__init__(self, nomenclature, width, height)
-        self.screenWidth = screen_width
-        self.screenHeight = screen_height
+        self.screen_width = screen_width
+        self.screen_height = screen_height
         self.count = Array('i', 10000)
 
     def __repr__(self):
@@ -135,7 +136,7 @@ class Screen(Device):
 # 
 
 class Slit(Device):
-    def __init__(self, nomenclature, width, height):
+    def __init__(self, nomenclature="", width=0, height=0):
 
         Device.__init__(self, nomenclature, width, height)
         self.xpos_left = -0.5 * width

@@ -7,7 +7,7 @@ import math as math
 # 
 
 class SectorBendingMagnet(Device):
-    def __init__(self, nomenclature, width, height, length, angle):
+    def __init__(self, nomenclature="", width=0, height=0, length=0, angle=0):
 
         Device.__init__(self, nomenclature, width, height, length)
         self.angle = angle
@@ -64,7 +64,7 @@ class RectangleBendingMagnet(Device):
 # 
 
 class HorizontalKickerMagnet(Device):
-    def __init__(self, nomenclature, width, height, angle=0.):
+    def __init__(self, nomenclature="", width=0, height=0, angle=0.):
 
         Device.__init__(self, nomenclature, width, height)
         self.angle = angle
@@ -89,7 +89,7 @@ class HorizontalKickerMagnet(Device):
 # 
 
 class QuadrupoleMagnet(Device):
-    def __init__(self, nomenclature, width, height, length, strength=0.):
+    def __init__(self, nomenclature="", width=0, height=0, length=0, strength=0.):
 
         Device.__init__(self, nomenclature, width, height, length)
         self.strength = strength

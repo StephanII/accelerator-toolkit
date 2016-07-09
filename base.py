@@ -1,3 +1,6 @@
+import xml.etree.ElementTree as ET
+
+
 class Aperture:
     ellipse = 1
     rectangle = 1
@@ -48,3 +51,13 @@ class Device(object):
                 ion.y > 0.5 * self.height
         else:
             raise Exception("Aperture type unknown")
+
+    def to_xml(self, xml):
+        a = ET.SubElement(xml, self.__class__.__name__)
+        for key in self.__dict__.keys():
+            if type(self.__dict__.get(key)).__name__ in ['float', 'int', 'str']:
+                a.set(key, str(self.__dict__.get(key)))
+
+    def from_xml(self, xml):
+        for att in xml.attrib:
+            self.__dict__.__setitem__(att, xml.get(att))

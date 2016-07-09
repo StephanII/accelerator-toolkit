@@ -1,26 +1,29 @@
+from base import Device
 from particles import Ion
 from random import gauss
 
 
-class IonSource:
+class IonSource(Device):
     def __init__(self, protons=92, neutrons=146, electrons=19, extraction_energy=5000.):
 
-        self.nomenclature = "Penning Ion Source"
+        Device.__init__(self, "Penning Ion Source", 0, 0)
         self.protons = protons
         self.neutrons = neutrons
         self.electrons = electrons
         self.extraction_energy = extraction_energy
-        self.firstDevice = None
 
     def __repr__(self):
 
-        r = "IonSource (mass=" + str(self.mass) + "u, chargeState=" + str(
-            self.chargeState) + "e, extractionEnergy=" + str(self.extraction_energy) + "eV)"
+        r = str(self) + "("
+        r += "protons=" + str(self.protons) + ", "
+        r += "neutrons=" + str(self.neutrons) + ", "
+        r += "electrons=" + str(self.electrons) + ", "
+        r += "extraction_energy=" + str(self.extraction_energy) + "eV)"
         return r
 
     def append_device(self, device):
 
-        self.firstDevice = device
+        self.next = device
 
     def run(self, number_of_ions):
 
@@ -34,6 +37,8 @@ class IonSource:
 
             ion = Ion(self.protons, self.neutrons, self.electrons, self.extraction_energy, x, dx, y, dy, dl, dp)
 
-            if self.firstDevice:
-                self.firstDevice.transport(ion)
+            if self.next:
+                self.next.transport(ion)
 
+    def xml_add_properties(self, element):
+        element.set("protons", str(self.protons))

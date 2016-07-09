@@ -1,13 +1,8 @@
 from base import Device
-import numpy as np
 
-
-# -----------------------------------------------------------------------------------------
-# 
-# 
 
 class Pipe(Device):
-    def __init__(self, width, height, length):
+    def __init__(self, width=0, height=0, length=0):
         Device.__init__(self, "", width, height, length)
 
     def __repr__(self):
