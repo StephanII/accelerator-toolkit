@@ -1,4 +1,4 @@
-from sources import IonSource
+from sources import *
 from diagnostic import *
 from magnets import *
 from pipes import *
@@ -15,7 +15,6 @@ class Accelerator:
                 if child.tag != 'accelerator':
                     instance = eval(child.tag)()
                     instance.from_xml(child)
-                    #instance = eval(child.tag)(child.get('nomenclature'))
                     self.append_device(instance)
         else:
             self.source = source
@@ -57,11 +56,11 @@ class Accelerator:
 
     def to_xml(self):
 
-        x = ET.Element('accelerator')
+        xml_root = ET.Element('accelerator')
         for device in self.devices:
-            device.to_xml(x)
-        xml_byte_string = ET.tostring(element=x, method="xml", short_empty_elements=False, encoding='utf-8')
-        return xml_byte_string.decode('UTF-8')
+            device.to_xml(xml_root)
+        xml_byte_string = ET.tostring(element=xml_root, method="xml", short_empty_elements=True, encoding='utf-8')
+        return xml_byte_string.decode('UTF-8').replace(">", ">\n")
 
     def to_file(self, filename):
 

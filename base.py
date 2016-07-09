@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 class Aperture:
     ellipse = 1
-    rectangle = 1
+    rectangle = 2
 
 
 class Device(object):
@@ -52,12 +52,14 @@ class Device(object):
         else:
             raise Exception("Aperture type unknown")
 
-    def to_xml(self, xml):
-        a = ET.SubElement(xml, self.__class__.__name__)
+    def to_xml(self, xml_root):
+
+        a = ET.SubElement(xml_root, self.__class__.__name__)
         for key in self.__dict__.keys():
             if type(self.__dict__.get(key)).__name__ in ['float', 'int', 'str']:
                 a.set(key, str(self.__dict__.get(key)))
 
     def from_xml(self, xml):
+
         for att in xml.attrib:
             self.__dict__.__setitem__(att, xml.get(att))
