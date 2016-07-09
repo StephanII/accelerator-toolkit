@@ -51,3 +51,7 @@ xml_root = ET.parse('acc.xml').getroot()
 acc2 = Accelerator(xml_root=xml_root)
 print(acc)
 print(acc2)
+
+
+acc2.start_simulation(40000)
+acc2.get_device_by_nomenclature("Screen2").show()

@@ -1,13 +1,8 @@
 import xml.etree.ElementTree as ET
 
 
-class Aperture:
-    ellipse = 1
-    rectangle = 2
-
-
 class Device(object):
-    def __init__(self, nomenclature, width, height, length=0., aperture_type=Aperture.ellipse):
+    def __init__(self, nomenclature, width, height, length=0., aperture_type=1):
 
         self.nomenclature = nomenclature
         self.width = width
@@ -41,16 +36,19 @@ class Device(object):
             self.next.reset()
 
     def is_particle_lost(self, ion):
-
-        if self.aperture_type == Aperture.ellipse:
+        if self.aperture_type == 1:
+            # ellipse
             return (4 * (ion.x ** 2) / (self.width ** 2) + 4 * (ion.y ** 2) / (self.height ** 2)) > 1
-        elif self.aperture_type == Aperture.rectangle:
+        elif self.aperture_type == 2:
+            # rectangle
             return ion.x < -0.5 * self.width or \
                 ion.x > 0.5 * self.width or \
                 ion.y < -0.5 * self.height or \
                 ion.y > 0.5 * self.height
         else:
-            raise Exception("Aperture type unknown")
+            print(self)
+            print(self.aperture_type, 1, 2)
+            raise Exception("Aperture type = " + self.aperture_type + " unknown")
 
     def to_xml(self, xml_root):
 
@@ -62,4 +60,13 @@ class Device(object):
     def from_xml(self, xml):
 
         for att in xml.attrib:
-            self.__dict__.__setitem__(att, xml.get(att))
+            self.__dict__.__setitem__(att, self.change_type(xml.get(att)))
+
+    def change_type(self, str):
+        try:
+            return int(str)
+        except ValueError:
+            try:
+                return float(str)
+            except ValueError:
+                return str

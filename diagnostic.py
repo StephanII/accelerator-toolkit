@@ -91,10 +91,10 @@ class Screen(Device):
 
     def collect(self, particle):
 
-        half_screen_width = 0.5 * self.screenWidth
-        half_screen_height = 0.5 * self.screenHeight
-        cell_width = 0.01 * self.screenWidth
-        cell_height = 0.01 * self.screenHeight
+        half_screen_width = 0.5 * self.screen_width
+        half_screen_height = 0.5 * self.screen_height
+        cell_width = 0.01 * self.screen_width
+        cell_height = 0.01 * self.screen_height
 
         if half_screen_width > particle.x > -half_screen_width and half_screen_height > particle.y > -half_screen_height:
             x = int((particle.x + half_screen_width) / cell_width)

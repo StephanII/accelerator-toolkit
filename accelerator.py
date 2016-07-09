@@ -11,7 +11,6 @@ class Accelerator:
         if xml_root:
             self.devices = []
             for child in xml_root.iter():
-                print(child.tag)
                 if child.tag != 'accelerator':
                     instance = eval(child.tag)()
                     instance.from_xml(child)
@@ -52,7 +51,7 @@ class Accelerator:
 
     def start_simulation(self, number_of_ions):
 
-        self.source.run(number_of_ions)
+        self.devices[0].run(number_of_ions)
 
     def to_xml(self):
 
