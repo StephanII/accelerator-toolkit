@@ -16,7 +16,6 @@ class Accelerator:
                     instance.from_xml(child)
                     self.append_device(instance)
         else:
-            self.source = source
             self.devices = [source]
 
     def __repr__(self):
@@ -29,6 +28,8 @@ class Accelerator:
 
     def append_device(self, device):
 
+        if device in self.devices:
+            raise Exception("error, device " + str(device) + " is already part of this accelerator")
         if len(self.devices) > 0:
             self.devices[-1].append_device(device)
         self.devices.append(device)
@@ -43,6 +44,9 @@ class Accelerator:
         for device in self.devices:
             if device.nomenclature == nomenclature:
                 return device
+
+    def get_devices_by_class_name(self, class_name):
+        pass
 
     def reset(self):
 

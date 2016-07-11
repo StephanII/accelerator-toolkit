@@ -2,12 +2,8 @@ from base import Device
 import math as math
 
 
-# -----------------------------------------------------------------------------------------
-# M_Dipol
-# 
-
 class SectorBendingMagnet(Device):
-    def __init__(self, nomenclature="", width=0, height=0, length=0, angle=0):
+    def __init__(self, nomenclature="", width=0., height=0., length=0., angle=0.):
 
         Device.__init__(self, nomenclature, width, height, length)
         self.angle = angle
@@ -51,20 +47,12 @@ class SectorBendingMagnet(Device):
         self.forward_if_not_lost(ion)
 
 
-# -----------------------------------------------------------------------------------------
-# 
-# M_kante*M_Dipole*M_Kante
-
 class RectangleBendingMagnet(Device):
     pass
 
 
-# -----------------------------------------------------------------------------------------
-# 
-# 
-
 class HorizontalKickerMagnet(Device):
-    def __init__(self, nomenclature="", width=0, height=0, angle=0.):
+    def __init__(self, nomenclature="", width=0., height=0., angle=0.):
 
         Device.__init__(self, nomenclature, width, height)
         self.angle = angle
@@ -89,7 +77,7 @@ class HorizontalKickerMagnet(Device):
 # 
 
 class QuadrupoleMagnet(Device):
-    def __init__(self, nomenclature="", width=0, height=0, length=0, strength=0.):
+    def __init__(self, nomenclature="", width=0., height=0., length=0., strength=0.):
 
         Device.__init__(self, nomenclature, width, height, length)
         self.strength = strength

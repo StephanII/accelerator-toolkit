@@ -4,7 +4,7 @@ from multiprocessing import Value, Array
 
 
 class Transformator(Device):
-    def __init__(self, nomenclature="", width=0, height=0):
+    def __init__(self, nomenclature="", width=0., height=0.):
 
         Device.__init__(self, nomenclature, width, height)
         self.count = Value('i', 0)
@@ -33,10 +33,10 @@ class Transformator(Device):
 
 
 class ProfileGrid(Device):
-    def __init__(self, nomenclature="", width=0, height=0, number_of_wires_h=100, number_of_wires_v=100):
+    def __init__(self, nomenclature="", width=0., height=0., number_of_wires_h=100, number_of_wires_v=100):
         Device.__init__(self, nomenclature, width, height)
-        self.number_of_wires_horizontal = number_of_wires_h
-        self.number_of_wires_vertical = number_of_wires_v
+        self.number_of_wires_h = number_of_wires_h
+        self.number_of_wires_v = number_of_wires_v
         self.count_h = Array('i', 100)
         self.count_v = Array('i', 100)
 
@@ -60,7 +60,7 @@ class ProfileGrid(Device):
 
 
 class Screen(Device):
-    def __init__(self, nomenclature="", width=0, height=0, screen_width=0, screen_height=0):
+    def __init__(self, nomenclature="", width=0., height=0., screen_width=0., screen_height=0.):
 
         Device.__init__(self, nomenclature, width, height)
         self.screen_width = screen_width
@@ -136,7 +136,7 @@ class Screen(Device):
 # 
 
 class Slit(Device):
-    def __init__(self, nomenclature="", width=0, height=0):
+    def __init__(self, nomenclature="", width=0., height=0.):
 
         Device.__init__(self, nomenclature, width, height)
         self.xpos_left = -0.5 * width
@@ -150,16 +150,16 @@ class Slit(Device):
 
     def __repr__(self):
 
-        r = "Slit " + self.nomenclature + " ("
+        r = str(self) + "("
         r += "width=" + str(self.width) + "m, "
         r += "height=" + str(self.height) + "m, "
         r += "xpos_left=" + str(self.xpos_left) + "m, "
         r += "xpos_right=" + str(self.xpos_right) + "m, "
         r += "ypos_bottom=" + str(self.ypos_bottom) + "m, "
-        r += "ypos_top=" + str(self.ypos_top) + "m"
-        r += "count_left=" + str(self.count_left.value) + " particles"
-        r += "count_right=" + str(self.count_right.value) + " particles"
-        r += "count_bottom=" + str(self.count_bottom.value) + " particles"
+        r += "ypos_top=" + str(self.ypos_top) + "m, "
+        r += "count_left=" + str(self.count_left.value) + " particles, "
+        r += "count_right=" + str(self.count_right.value) + " particles, "
+        r += "count_bottom=" + str(self.count_bottom.value) + " particles, "
         r += "count_top=" + str(self.count_top.value) + " particles"
         r += ")"
         return r
